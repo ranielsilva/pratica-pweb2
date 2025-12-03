@@ -2,13 +2,14 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import bd from "./src/models/index.js";
-import redis from "./redis.js"; // <-- usar seu arquivo redis.js
+import redis from "./redis.js";
 
 // Carrega as variáveis de ambiente
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
 
 // Middlewares
 app.use(cors());
@@ -134,7 +135,6 @@ app.delete("/tasks/:id", async (req, res) => {
     return res.status(500).json({ error: "Erro interno" });
   }
 });
-
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port}`);

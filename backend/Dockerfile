@@ -1,33 +1,22 @@
-# Use a imagem oficial do Node.js como base
-FROM node:18-alpine
+# Use uma imagem base do Node.js v20, que é compatível com as dependências do Supabase
+FROM node:20-alpine
 
-# Instala o bash e postgresql-client para executar scripts e comandos SQL
-RUN apk add --no-cache bash postgresql-client
-
-# Define o diretório de trabalho dentro do container
+# Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copia os arquivos de dependências
-COPY package*.json ./
+# Copia os arquivos de manifesto de pacote
+COPY package.json package-lock.json* ./
 
-# Instala as dependências (incluindo devDependencies para sequelize-cli)
-RUN npm ci
+# Instala as dependências
+# Usamos 'npm install' em vez de 'npm ci' para resolver problemas de sincronia com o package-lock.json
+# e garantir que as dependências corretas sejam instaladas.
+RUN npm install
 
 # Copia o código fonte da aplicação
 COPY . .
 
-# Garante que o script start.sh tenha o formato de final de linha do Unix (LF)
-RUN sed -i 's/\r$//' start.sh
-
-# Torna o script de inicialização executável
-RUN chmod +x start.sh
-
-# Expõe a porta que a aplicação usa
+# Expõe a porta que a aplicação usará
 EXPOSE 3000
 
-# Define variáveis de ambiente padrão
-ENV NODE_ENV=production
-ENV PORT=3000
-
-# Comando para iniciar a aplicação usando o script que executa as migrations
-CMD ["./start.sh"]
+# Comando para iniciar a aplicação
+CMD ["npm", "start"]
