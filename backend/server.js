@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import bd from "./src/models/index.js";
 import redis from "./redis.js";
 
+
 // Carrega as variáveis de ambiente
 dotenv.config();
 
