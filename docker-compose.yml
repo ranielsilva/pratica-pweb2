@@ -53,7 +53,7 @@ services:
       REDIS_PORT: 6379
       SUPABASE_URL: ${SUPABASE_URL}
       SUPABASE_KEY: ${SUPABASE_KEY}
-      JWT_SECRET: ${JWT_SECRET} # Adicionado para o segredo do JWT
+      JWT_SECRET: ${JWT_SECRET}
     ports:
       - "3000:3000"
     depends_on:

@@ -9,7 +9,8 @@ router.post('/register', registerController);
 router.post('/login', loginController);
 router.post('/signin', loginController); // Adicionado alias para a rota de login
 
-// Rota protegida de exemplo
+
+
 // Apenas usuários com um token JWT válido podem acessar
 router.get('/profile', authMiddleware, (req: Request, res: Response) => {
   // Graças ao middleware, temos acesso a req.user
